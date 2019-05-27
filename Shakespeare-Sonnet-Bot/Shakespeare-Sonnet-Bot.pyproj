@@ -25,7 +25,10 @@
     <Compile Include="Shakespeare_Sonnet_Bot.py" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Birds.ttf" />
+    <Content Include="Highest.ttf" />
     <Content Include="requirements.txt" />
+    <Content Include="Roboto.ttf" />
     <Content Include="sonnets.txt" />
   </ItemGroup>
   <ItemGroup>

@@ -1,6 +1,7 @@
 from textgenrnn import textgenrnn
 from Phyme import Phyme
 import random
+from PIL import Image, ImageDraw, ImageFont
 
 textgen = textgenrnn()
 textgen.train_from_file('sonnets.txt', num_epochs=3)
@@ -186,25 +187,44 @@ def engine():
     usedRhymes = usedRhymes + rhymes7
     print(couplet7)
 
-    print(couplet1[0])
-    print(couplet2[0])
-    print(couplet1[1])
-    print(couplet2[1])
 
-    print(couplet3[0])
-    print(couplet4[0])
-    print(couplet3[1])
-    print(couplet4[1])
+    returner = []
+    returner.append(couplet1[0])
+    returner.append(couplet2[0])
+    returner.append(couplet1[1])
+    returner.append(couplet2[1])
 
-    print(couplet5[0])
-    print(couplet6[0])
-    print(couplet5[1])
-    print(couplet6[1])
+    returner.append(couplet3[0])
+    returner.append(couplet4[0])
+    returner.append(couplet3[1])
+    returner.append(couplet4[1])
+    
+    returner.append(couplet5[0])
+    returner.append(couplet6[0])
+    returner.append(couplet5[1])
+    returner.append(couplet6[1])
 
-    print(couplet7[0])
-    print(couplet7[1])
+    returner.append(couplet7[0])
+    returner.append(couplet7[1])
+
+    return returner
+
+sonnet = engine()
+
+stringy = sonnet[0] + "\n" + sonnet[1] + "\n" + sonnet[2] + "\n" + sonnet[3] + "\n\n" + sonnet[4] + "\n" + sonnet[5] + "\n" + sonnet[6] + "\n" + sonnet[7] + "\n\n" + sonnet[8] + "\n" + sonnet[9] + "\n" + sonnet[10] + "\n" + sonnet[11] 
+stringy2 = sonnet[12] + "\n" + sonnet[13]
 
 
 
 
-engine()
+img = Image.new('RGB', (500, 320), color = (73, 109, 137))
+ 
+fnt = ImageFont.truetype('Roboto.ttf', 15)
+d = ImageDraw.Draw(img)
+d.text((10,10), stringy, font=fnt, fill=(255, 255, 0))
+d.text((35,270), stringy2, font=fnt, fill=(255, 255, 0))
+
+
+ 
+img.show()
+img.save('pil_text_font.png')
