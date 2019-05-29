@@ -2,9 +2,11 @@ from textgenrnn import textgenrnn
 from Phyme import Phyme
 import random
 from PIL import Image, ImageDraw, ImageFont
+import tweepy
+import datetime
 
 textgen = textgenrnn()
-textgen.train_from_file('sonnets.txt', num_epochs=3)
+textgen.train_from_file('C:\\Users\\sanig\\source\\repos\\Shakespeare-Sonnet-Bot\\Shakespeare-Sonnet-Bot\\sonnets.txt', num_epochs=3)
 
 
 ph = Phyme()
@@ -43,7 +45,7 @@ def generateLine():
     return output
 
 def generateNewLine():
-    lineNEW = textgen.generate(temperature = .7, return_as_list=True)
+    lineNEW = textgen.generate(temperature = .6, return_as_list=True)
     return str(lineNEW[0])
 
 
@@ -219,12 +221,34 @@ stringy2 = sonnet[12] + "\n" + sonnet[13]
 
 img = Image.new('RGB', (500, 320), color = (73, 109, 137))
  
-fnt = ImageFont.truetype('Roboto.ttf', 15)
+fnt = ImageFont.truetype('C:\\Users\\sanig\\source\\repos\\Shakespeare-Sonnet-Bot\\Shakespeare-Sonnet-Bot\\Roboto.ttf', 15)
 d = ImageDraw.Draw(img)
 d.text((10,10), stringy, font=fnt, fill=(255, 255, 0))
 d.text((35,270), stringy2, font=fnt, fill=(255, 255, 0))
 
+date = datetime.datetime.now().isoformat()
+date = date.replace(":","")
+date = date.replace(".","")
 
- 
-img.show()
-img.save('pil_text_font.png')
+filename = "sonnet" + date + ".png"
+
+img.save(filename)
+
+
+
+# authentication of consumer key and secret 
+auth = tweepy.OAuthHandler(consumer_key, consumer_secret) 
+  
+# authentication of access token and secret 
+auth.set_access_token(access_token, access_token_secret) 
+api = tweepy.API(auth) 
+  
+imagelocation = "C:\\Users\\sanig\\source\\repos\\Shakespeare-Sonnet-Bot\\Shakespeare-Sonnet-Bot\\sonnet" + date + ".png"
+
+# update the status 
+splitted = sonnet[0].split()
+sortedwords = sorted(splitted, key=len)
+hashyboi = sortedwords[-1]
+
+
+api.update_with_media(imagelocation, status = sonnet[0] + " #" + hashyboi) 
